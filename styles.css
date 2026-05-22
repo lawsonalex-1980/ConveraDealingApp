@@ -1,0 +1,59 @@
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #020617;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.menu-item {
+  padding: 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: #1e293b;
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.role-badge {
+  background: #334155;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.locked {
+  opacity: 0.4;
+  pointer-events: none;
+}
