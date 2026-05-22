@@ -1,21 +1,37 @@
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
+:root {
+  /* Backgrounds */
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --bg-sidebar: #020617;
+
+  /* Text */
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+
+  /* Brand */
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
 }
+``
+
+
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
 
 .app {
   display: flex;
   height: 100vh;
 }
 
+
 .sidebar {
-  width: 240px;
-  background: #020617;
-  padding: 20px;
+  background: var(--bg-sidebar);
 }
+
 
 .sidebar h2 {
   font-size: 14px;
@@ -38,12 +54,20 @@ body {
   padding: 20px;
 }
 
+
 .card {
-  background: #1e293b;
-  padding: 16px;
-  border-radius: 10px;
-  margin-bottom: 16px;
+  background: var(--bg-card);
 }
+
+
+.button {
+  background: var(--primary);
+}
+
+.button:hover {
+  background: var(--primary-hover);
+}
+
 
 .role-badge {
   background: #334155;
