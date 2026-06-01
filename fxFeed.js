@@ -1,3 +1,4 @@
+console.log("FX script loaded");
 export function initFXFeed() {
   const card = document.createElement("div");
   card.className = "card";
