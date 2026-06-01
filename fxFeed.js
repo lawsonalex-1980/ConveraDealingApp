@@ -21,9 +21,9 @@ export function initFXFeed() {
 
   function getDirectionColor(current, previous) {
     if (!previous) return "#64748b";
-    if (current > previous) return "#16a34a"; // up → green
-    if (current < previous) return "#dc2626"; // down → red
-    return "#64748b"; // flat → neutral
+    if (current > previous) return "#16a34a";
+    if (current < previous) return "#dc2626";
+    return "#64748b";
   }
 
   async function fetchRates() {
@@ -31,13 +31,13 @@ export function initFXFeed() {
     const timestamp = document.getElementById("fx-timestamp");
 
     try {
-      const res = await fetch(
-        "https://api.exchangerate.host/latest?base=USD&symbols=EUR,GBP,JPY"
-      );
+      const res = await fetch("https://open.er-api.com/v6/latest/USD");
 
       if (!res.ok) throw new Error("API failed");
 
       const data = await res.json();
+
+      if (!data || !data.rates) throw new Error("Invalid FX data");
 
       const rates = [
         { pair: "EUR/USD", value: 1 / data.rates.EUR },
@@ -54,14 +54,14 @@ export function initFXFeed() {
           <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #e2e8f0;">
             <span>${r.pair}</span>
             <strong>
-              ${r.value.toFixed(4)} 
+              ${r.value.toFixed(4)}
               <span style="color:${color}; margin-left:6px;">${direction}</span>
             </strong>
           </div>
         `;
       }).join("");
 
-      // update stored values
+      // store previous values
       rates.forEach(r => {
         previousRates[r.pair] = r.value;
       });
@@ -72,14 +72,15 @@ export function initFXFeed() {
       console.error("FX error", err);
 
       container.innerHTML = `
-        <div style="color: #dc2626;">
+        <div style="color:#dc2626;">
           Unable to load FX rates
         </div>
       `;
+
+      timestamp.innerText = "";
     }
   }
 
   fetchRates();
   setInterval(fetchRates, 10000);
 }
-``
