@@ -27,61 +27,44 @@ export function initFXFeed() {
     return "#64748b";
   }
 
-  async function fetchRates() {
-    const container = document.getElementById("fx-rates");
-    const timestamp = document.getElementById("fx-timestamp");
+ async function fetchRates() {
+  const container = document.getElementById("fx-rates");
 
-    try {
-      const res = await fetch("https://open.er-api.com/v6/latest/USD");
+  try {
+    const res = await fetch("https://open.er-api.com/v6/latest/USD");
 
-      if (!res.ok) throw new Error("API failed");
+    const data = await res.json();
 
-      const data = await res.json();
+    // ✅ Correct logging syntax
+    console.log("FX API response:", data);
 
-      if (!data || !data.rates) throw new Error("Invalid FX data");
-
-      const rates = [
-        { pair: "EUR/USD", value: 1 / data.rates.EUR },
-        { pair: "GBP/USD", value: 1 / data.rates.GBP },
-        { pair: "USD/JPY", value: data.rates.JPY }
-      ];
-
-      container.innerHTML = rates.map(r => {
-        const prev = previousRates[r.pair];
-        const direction = getDirectionSymbol(r.value, prev);
-        const color = getDirectionColor(r.value, prev);
-
-        return `
-          <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #e2e8f0;">
-            <span>${r.pair}</span>
-            <strong>
-              ${r.value.toFixed(4)}
-              <span style="color:${color}; margin-left:6px;">${direction}</span>
-            </strong>
-          </div>
-        `;
-      }).join("");
-
-      // store previous values
-      rates.forEach(r => {
-        previousRates[r.pair] = r.value;
-      });
-
-      timestamp.innerText = `Updated: ${new Date().toLocaleTimeString()}`;
-
-    } catch (err) {
-      console.error("FX error", err);
-
-      container.innerHTML = `
-        <div style="color:#dc2626;">
-          Unable to load FX rates
-        </div>
-      `;
-
-      timestamp.innerText = "";
+    if (data.result !== "success" || !data.rates) {
+      throw new Error("Invalid FX data");
     }
-  }
 
+    const rates = [
+      { pair: "EUR/USD", value: 1 / data.rates.EUR },
+      { pair: "GBP/USD", value: 1 / data.rates.GBP },
+      { pair: "USD/JPY", value: data.rates.JPY }
+    ];
+
+    container.innerHTML = rates.map(r => `
+      <div style="display:flex; justify-content:space-between;">
+        <span>${r.pair}</span>
+        <strong>${r.value.toFixed(4)}</strong>
+      </div>
+    `).join("");
+
+  } catch (err) {
+    console.error("FX error", err);
+
+    container.innerHTML = `
+      <div style="color:red;">
+        FX feed error
+      </div>
+    `;
+  }
+}
   fetchRates();
   setInterval(fetchRates, 10000);
 }
