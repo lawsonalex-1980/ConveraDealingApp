@@ -32,16 +32,18 @@ export function initNewsFeed() {
         date: item.querySelector("pubDate")?.textContent
       }));
 
-      container.innerHTML = news.map(n => `
-        <div style="padding:8px 0; border-bottom:1px solid #e2e8f0;">
-          <a href="${n.link}" target="_blank" style="text-decoration:none;">
-            <strong>${n.title}</strong>
-          </a>
-          <div style="font-size:11px; opacity:0.6;">
-            ${new Date(n.date).toLocaleTimeString()}
-          </div>
-        </div>
-      `).join("");
+     
+container.innerHTML = news.map(n => `
+  <div style="padding:8px 0; border-bottom:1px solid #e2e8f0;">
+    <a href="${n.link}" target="_blank" style="text-decoration:none; color:inherit;">
+      <strong>${n.title}</strong>
+    </a>
+    <div style="font-size:11px; opacity:0.6;">
+      ${new Date(n.date).toLocaleTimeString()}
+    </div>
+  </div>
+`).join("");
+
 
     } catch (err) {
       console.error("News error", err);
