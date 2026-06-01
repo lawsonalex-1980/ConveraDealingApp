@@ -1,9 +1,9 @@
 
 :root {
   /* Backgrounds */
-  --bg-main: #EAEAEA;
-  --bg-card: #OOC7B3;
-  --bg-sidebar: #OO1E37;
+  --bg-main: color: #F2F6F7;
+  --bg-card: color: #OOC7B3;
+  --bg-sidebar: color: #OO1E37;
 
   /* Text */
   --text-main: #e2e8f0;
