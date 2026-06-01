@@ -2,7 +2,7 @@ import { renderSidebar } from "./components/sidebar.js";
 import { renderDashboard } from "./components/dashboard.js";
 import { ROLES } from "./config.js";
 import { initFXFeed } from "./modules/fxFeed.js";
-import { initNewsFeed } from "./newsFeed.js";
+
 import { initVolFeed } from "./modules/volFeed.js";
 
 const user = {
